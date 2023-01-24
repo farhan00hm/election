@@ -1,0 +1,128 @@
+#search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#search-input {
+    width: 250px;
+}
+
+#search-button {
+    display: inline-block;
+    border: none;
+}
+
+#wheel-data{
+    margin-bottom: 20px;
+}
+
+
+
+/*[class|=wheelnav-tab-wheel-slice-selected] {*/
+/*    fill: white !important;*/
+/*}*/
+
+
+
+.wheelnav-tab-wheel-slice-basic-1 {
+    fill: red !important;
+}
+
+.wheelnav-tab-wheel-slice-basic-2 {
+    fill: green !important;
+}
+
+.wheelnav-tab-wheel-slice-basic-3 {
+    fill: blue !important;
+}
+
+.wheelnav-tab-wheel-slice-basic-4 {
+    fill: yellow !important;
+}
+
+
+
+/*//start*/
+#tab > .wtab-content {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    padding: 25px
+}
+
+/*#tab > [class*=wtab-selected] {*/
+/*    background-color: #fff;*/
+/*    border-width: 0*/
+/*}*/
+
+#tab-wheel:focus {
+    outline: none
+}
+
+[class|=wheelnav-tab-wheel-line] {
+    stroke: #efefef
+}
+
+/*[class|=wheelnav-tab-wheel-slice-basic] {*/
+/*    fill: #fff;*/
+/*    stroke: #efefef;*/
+/*    stroke-width: 3px*/
+/*}*/
+
+[class|=wheelnav-tab-wheel-slice-hover] {
+    fill: #fff;
+    cursor: pointer;
+    stroke: #efefef;
+    stroke-width: 3px
+}
+
+[class|=wheelnav-tab-wheel-slice-selected] {
+    fill: grey;
+    stroke: #efefef;
+    stroke-width: 3px
+}
+
+[class|=wheelnav-tab-wheel-title] > tspan {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px
+}
+
+.wheelnav-tab-wheel-slice-basic-0 {
+    fill: orange !important;
+}
+
+.wheelnav-tab-wheel-slice-basic-1 {
+    fill: red !important;
+}
+
+.wheelnav-tab-wheel-slice-basic-2 {
+    fill: green !important;
+}
+
+.wheelnav-tab-wheel-slice-basic-3 {
+    fill: blue !important;
+}
+
+.wheelnav-tab-wheel-slice-basic-4 {
+    fill: yellow !important;
+}
+/*[class|=wheelnav-tab-wheel-title-basic] {*/
+/*    fill: #333;*/
+/*    stroke: #333*/
+/*}*/
+
+[class|=wheelnav-tab-wheel-title-hover] {
+    fill: #333;
+    stroke: #333;
+    cursor: pointer
+}
+
+[class|=wheelnav-tab-wheel-title-selected] {
+    fill: #333;
+    stroke: #333
+}
+
+.wheelnav-tab-wheel-marker {
+    stroke: #333;
+    stroke-width: 2px
+}
