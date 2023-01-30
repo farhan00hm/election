@@ -4,7 +4,7 @@
 
     <!--CSS for your project-->
     <link href="https://wtabs.softwaretailoring.net/assets/dist/css/wheelizate.tab.min.css" rel="stylesheet">
-{{--    <link href="https://wtabs.softwaretailoring.net/themes/themeBasic/Gray/theme.min.css" rel="stylesheet">--}}
+    {{--    <link href="https://wtabs.softwaretailoring.net/themes/themeBasic/Gray/theme.min.css" rel="stylesheet">--}}
 
     <!--JS for your project-->
     <script src="https://wtabs.softwaretailoring.net/assets/required/js/jquery-1.11.3.min.js"></script>
@@ -16,7 +16,8 @@
 @section('body')
     <div class="row">
         <div class="col-md-4">
-            <img src="https://franchisematch.com/wp-content/uploads/2015/02/john-doe.jpg" class="rounded-circle" alt="Cinque Terre">
+            <img src="https://franchisematch.com/wp-content/uploads/2015/02/john-doe.jpg" class="rounded-circle"
+                 alt="Cinque Terre">
         </div>
         <div class="col-md-8">
             <div class="row" style="margin: 30px;">
@@ -30,7 +31,8 @@
 
             <div class="row" style="margin: 30px;">
                 <div class="col-md-4">
-                    <span class="border" style="margin: 5px; padding: 10px;">শিক্ষাগত যোগ্যতাঃ {{ $candidate->শিক্ষাগত_যোগ্যতা }}</span>
+                    <span class="border"
+                          style="margin: 5px; padding: 10px;">শিক্ষাগত যোগ্যতাঃ {{ $candidate->শিক্ষাগত_যোগ্যতা }}</span>
                 </div>
                 <div class="col-md-4">
                     <span class="border" style="margin: 5px; padding: 10px;">কতাবার নির্বাচিতঃ ১</span>
@@ -94,8 +96,13 @@
                 <!-- income div -->
                 <div data-wtab-tabtitle-text="আয়" data-wtab-tabtitle-tooltip="Tooltip 2">
                     <p>
-                        <button class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">নিজ</button>
-                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">নির্ভরশীল</button>
+                        <button class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1"
+                                role="button" aria-expanded="false" aria-controls="multiCollapseExample1">নিজ
+                        </button>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#multiCollapseExample2" aria-expanded="false"
+                                aria-controls="multiCollapseExample2">নির্ভরশীল
+                        </button>
 
                     </p>
                     <div id="graph-collapse">
@@ -128,10 +135,73 @@
                 </div>
 
 
-
                 <div data-wtab-tabtitle-text="ঋণ" data-wtab-tabtitle-tooltip="Tooltip 3">Tab pane 3
                 </div>
-                <div data-wtab-tabtitle-text="সম্পদ" data-wtab-tabtitle-tooltip="Tooltip 4">Tab pane 4</div>
+                <!-- সম্পদ tab -->
+                <div data-wtab-tabtitle-text="সম্পদ" data-wtab-tabtitle-tooltip="Tooltip 4">
+                    <div id="graph-collapse">
+                        <div class="row">
+                            <div class="col">
+                                <div class="collapse show" id="multiCollapseExample1" data-bs-parent="#graph-collapse">
+                                    <div class="card card-body">
+                                        <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
+                                            <div class="table-wrapper">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">নিজ</th>
+                                                        <th scope="col">স্ত্রী/স্বামী</th>
+                                                        <th scope="col">নির্ভরশীল</th>
+                                                        <th scope="col">খাত</th>
+                                                        <th scope="col">সাল</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($movableDatas as $movableData)
+                                                        <tr>
+                                                            <th scope="row">{{ $movableData->নিজ }}</th>
+                                                            <td>{{ $movableData->স্ত্রী_স্বামী }}</td>
+                                                            <td>{{ $movableData->নির্ভরশীল }}</td>
+                                                            <td>{{ $movableData->খাত }}</td>
+                                                            <td>{{ $movableData->সাল }}</td>
+                                                        </tr>
+                                                    @endforeach
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="collapse" data-bs-parent="#graph-collapse" id="multiCollapseExample2">
+                                    <div class="card card-body">
+                                        <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
+                                            <canvas class="graph-div" id="dependentIncomeGraphChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                        <button class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1"
+                                role="button" aria-expanded="false" aria-controls="multiCollapseExample1">স্থাবর
+                        </button>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#multiCollapseExample2" aria-expanded="false"
+                                aria-controls="multiCollapseExample2">অস্থাবর
+                        </button>
+
+                    </p>
+                </div>
+
+
                 <div data-wtab-tabtitle-text="প্রতিশ্রুতি" data-wtab-tabtitle-tooltip="Tooltip 4">প্রতিশ্রুতি</div>
             </div>
         </div>
@@ -167,14 +237,14 @@
 
         console.log(graphValuesOfOwnIncome);
         $(document).ready(function () {
-            formGraph("ownIncomeGraphChart",graphValuesOfOwnIncome);
-            formGraph("dependentIncomeGraphChart",graphValuesOfDependentIncomeIncome);
+            formGraph("ownIncomeGraphChart", graphValuesOfOwnIncome);
+            formGraph("dependentIncomeGraphChart", graphValuesOfDependentIncomeIncome);
 
         });
 
 
         //forming graph
-        function formGraph(graphId,graphValues){
+        function formGraph(graphId, graphValues) {
             let exportData = graphValues;
             let exportDataLabel = []
             const labels = graphValues['xAxis'];
@@ -187,7 +257,7 @@
             console.log("yAxis value")
             console.log(graphValues['yAxis'][0]['label'])
 
-            for(let i =0 ;i < graphValues['yAxis'].length;i++){
+            for (let i = 0; i < graphValues['yAxis'].length; i++) {
 
                 data.datasets.push(
                     {
@@ -196,7 +266,7 @@
                         borderWidth: 2,
                         borderColor: colorArray[i],
                         backgroundColor: colorArray[i],
-                        fill:false
+                        fill: false
 
                     },
                 )

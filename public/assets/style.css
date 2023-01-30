@@ -37,6 +37,17 @@
     text-decoration: none;
 }
 
+/* wrap bootstrap table */
+.table-wrapper {
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+    display:inline-block;
+
+}
+
+/*th { position: sticky; top: 0; }*/
+
 /*#search-container {*/
 /*    display: flex;*/
 /*    justify-content: center;*/

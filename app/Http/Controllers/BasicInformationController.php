@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BasicInformation;
 use App\Models\income;
+use App\Models\Movable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -54,8 +55,8 @@ class BasicInformationController extends Controller
         $graphValuesOfDependentIncomeIncome['xAxis'] = $xAxisValues;
         $graphValuesOfDependentIncomeIncome['yAxis'] = $yAxisValuesOfDependent;
 
-//        dd($graphValuesOfOwnIncome,$graphValuesOfDependentIncomeIncome);
-
-        return view( 'basic',["candidate"=>$candidate,"graphValuesOfOwnIncome"=>$graphValuesOfOwnIncome,"graphValuesOfDependentIncomeIncome"=>$graphValuesOfDependentIncomeIncome]);
+        //movable table data
+        $movableDatas = Movable::where('প্রার্থী','=',$candidateName)->get();
+        return view( 'basic',["candidate"=>$candidate,"graphValuesOfOwnIncome"=>$graphValuesOfOwnIncome,"graphValuesOfDependentIncomeIncome"=>$graphValuesOfDependentIncomeIncome,"movableDatas"=>$movableDatas]);
     }
 }
