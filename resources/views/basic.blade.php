@@ -139,10 +139,10 @@
                 </div>
                 <!-- সম্পদ tab -->
                 <div data-wtab-tabtitle-text="সম্পদ" data-wtab-tabtitle-tooltip="Tooltip 4">
-                    <div id="graph-collapse">
+                    <div id="graph-collapse2">
                         <div class="row">
                             <div class="col">
-                                <div class="collapse show" id="multiCollapseExample1" data-bs-parent="#graph-collapse">
+                                <div class="collapse show" id="movableTable" data-bs-parent="#graph-collapse2">
                                     <div class="card card-body">
                                         <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
                                             <div class="table-wrapper">
@@ -179,10 +179,37 @@
 
                         <div class="row">
                             <div class="col">
-                                <div class="collapse" data-bs-parent="#graph-collapse" id="multiCollapseExample2">
+                                <div class="collapse" data-bs-parent="#graph-collapse2" id="immovableTable">
                                     <div class="card card-body">
                                         <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
-                                            <canvas class="graph-div" id="dependentIncomeGraphChart"></canvas>
+                                            <div class="table-wrapper">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">নিজ</th>
+                                                        <th scope="col">স্ত্রী/স্বামী</th>
+                                                        <th scope="col">নির্ভরশীল</th>
+                                                        <th scope="col">খাত</th>
+                                                        <th scope="col">সাল</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($immovableDatas as $immovableData)
+                                                        <tr>
+                                                            <th scope="row">{{ $immovableData->নিজ }}</th>
+                                                            <td>{{ $immovableData->স্ত্রী_স্বামী }}</td>
+                                                            <td>{{ $immovableData->নির্ভরশীল }}</td>
+                                                            <td>{{ $immovableData->যৌথ_মালিকানা }}</td>
+                                                            <td>{{ $immovableData->প্রার্থীর_অংশ }}</td>
+                                                            <td>{{ $immovableData->খাত }}</td>
+                                                            <td>{{ $immovableData->সাল }}</td>
+                                                        </tr>
+                                                    @endforeach
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -190,12 +217,12 @@
                         </div>
                     </div>
                     <p>
-                        <button class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1"
-                                role="button" aria-expanded="false" aria-controls="multiCollapseExample1">স্থাবর
+                        <button class="btn btn-primary" data-bs-toggle="collapse" href="#movableTable"
+                                role="button" aria-expanded="false" aria-controls="movableTable">স্থাবর
                         </button>
                         <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#multiCollapseExample2" aria-expanded="false"
-                                aria-controls="multiCollapseExample2">অস্থাবর
+                                data-bs-target="#immovableTable" aria-expanded="false"
+                                aria-controls="immovableTable">অস্থাবর
                         </button>
 
                     </p>
