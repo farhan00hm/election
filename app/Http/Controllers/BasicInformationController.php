@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BasicInformation;
 use App\Models\Immovable;
 use App\Models\income;
+use App\Models\Loan;
 use App\Models\Movable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -58,7 +59,39 @@ class BasicInformationController extends Controller
 
         //movable table data
         $movableDatas = Movable::where('প্রার্থী','=',$candidateName)->get();
+        //immovable table data
         $immovableDatas = Immovable::where('প্রার্থী','=',$candidateName)->get();
-        return view( 'basic',["candidate"=>$candidate,"graphValuesOfOwnIncome"=>$graphValuesOfOwnIncome,"graphValuesOfDependentIncomeIncome"=>$graphValuesOfDependentIncomeIncome,"movableDatas"=>$movableDatas,"immovableDatas"=>$immovableDatas]);
+        //loan table data
+        $rawLoanDatas = Loan::where('প্রার্থী','=',$candidateName)->get();
+//        $loanDatas = Loan::where('প্রার্থী','=',$candidateName)->get();
+
+        $loanDatas= [];
+        foreach ($rawLoanDatas as $rawLoanData){
+            if($rawLoanData->ব্যাংক_প্রতিষ্ঠানের_নাম != null){
+                $banks = [];
+                $loansAmount = [];
+                $tafsilDates = [];
+
+                $banks = explode("।",$rawLoanData->ব্যাংক_প্রতিষ্ঠানের_নাম);
+                $loansAmount = explode("।",$rawLoanData->ঋণের_পরিমাণ);
+                $tafsilDates = explode("।",$rawLoanData->পূনঃতফসীল_সর্বশেষ_তারিখ);
+                for($i=0;$i< sizeof($banks);$i++){
+                    //TODO need add other properties like খেলাপি ঋণের পরিমাণ need to discuss about id 25 of tafsil date
+//                    সিলেট-৩	মাহমুদ উস সামাদ চৌধুরী	সোনালী ব্য়াংক লিঃ। ইউসিবিএল, প্রিন্সিপাল শাখা। স্ট্যান্ডার্ড ব্যাংক লিঃ,  প্রিন্সিপাল শাখা। ইউসিবিএল, প্রিন্সিপাল শাখা। এক্সিম ব্যাংক লিঃ, ফেঞ্চুগঞ্জ শাখা	442540000। 204681000। 14258306.6। 4739000। 28283000		০২/১০/২০১৮। 	এমডি, চেয়ারম্যান বা ডিরেক্টর	2018
+                    $loan = [];
+                    $loan['ব্যাংক_প্রতিষ্ঠানের_নাম'] = array_key_exists($i,$banks)  ? $banks[$i] : "";
+                    $loan['ঋণের_পরিমাণ'] = array_key_exists($i,$loansAmount) ? $loansAmount[$i] : "";
+                    $loan['পূনঃতফসীল_সর্বশেষ_তারিখ'] = array_key_exists($i,$tafsilDates)  ? $tafsilDates[$i] : "";
+                    $loan['খাত'] = $rawLoanData->খাত;
+                    $loan['সাল'] = $rawLoanData->সাল;
+                    array_push($loanDatas,$loan);
+                }
+
+            }
+
+        }
+
+//        dd($loanDatas);
+        return view( 'basic',["candidate"=>$candidate,"graphValuesOfOwnIncome"=>$graphValuesOfOwnIncome,"graphValuesOfDependentIncomeIncome"=>$graphValuesOfDependentIncomeIncome,"movableDatas"=>$movableDatas,"immovableDatas"=>$immovableDatas,"loanDatas"=>$loanDatas]);
     }
 }

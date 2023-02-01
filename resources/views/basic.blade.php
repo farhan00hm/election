@@ -135,7 +135,40 @@
                 </div>
 
 
-                <div data-wtab-tabtitle-text="ঋণ" data-wtab-tabtitle-tooltip="Tooltip 3">Tab pane 3
+                <!-- loan tab -->
+                <div data-wtab-tabtitle-text="ঋণ" data-wtab-tabtitle-tooltip="Tooltip 3">
+                    <div class="card card-body">
+                        <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
+                            <div class="table-wrapper">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ব্যাংক/ প্রতিষ্ঠানের নাম</th>
+                                        <th scope="col">ঋণের পরিমাণ</th>
+                                        <th scope="col">খেলাপী ঋণের পরিমাণ</th>
+                                        <th scope="col">পূনঃতফসীলের সর্বশেষ তারিখ</th>
+                                        <th scope="col">খাত</th>
+                                        <th scope="col">সাল</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($loanDatas as $loanData)
+                                        <tr>
+                                            <th scope="row">{{ $loanData['ব্যাংক_প্রতিষ্ঠানের_নাম'] }}</th>
+                                            <td>{{ $loanData['ঋণের_পরিমাণ'] }}</td>
+                                            <td>{{ $loanData['খেলাপী_ঋণের_পরিমাণ'] ?? '' }}</td>
+                                            <td>{{ $loanData['পূনঃতফসীল_সর্বশেষ_তারিখ'] }}</td>
+                                            <td>{{ $loanData['খাত'] }}</td>
+                                            <td>{{ $loanData['সাল'] }}</td>
+                                        </tr>
+                                    @endforeach
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- সম্পদ tab -->
                 <div data-wtab-tabtitle-text="সম্পদ" data-wtab-tabtitle-tooltip="Tooltip 4">
