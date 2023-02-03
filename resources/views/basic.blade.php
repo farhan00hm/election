@@ -133,42 +133,192 @@
                         </div>
                     </div>
                 </div>
-
-
                 <!-- loan tab -->
                 <div data-wtab-tabtitle-text="ঋণ" data-wtab-tabtitle-tooltip="Tooltip 3">
-                    <div class="card card-body">
-                        <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
-                            <div class="table-wrapper">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">ব্যাংক/ প্রতিষ্ঠানের নাম</th>
-                                        <th scope="col">ঋণের পরিমাণ</th>
-                                        <th scope="col">খেলাপী ঋণের পরিমাণ</th>
-                                        <th scope="col">পূনঃতফসীলের সর্বশেষ তারিখ</th>
-                                        <th scope="col">খাত</th>
-                                        <th scope="col">সাল</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($loanDatas as $loanData)
-                                        <tr>
-                                            <th scope="row">{{ $loanData['ব্যাংক_প্রতিষ্ঠানের_নাম'] }}</th>
-                                            <td>{{ $loanData['ঋণের_পরিমাণ'] }}</td>
-                                            <td>{{ $loanData['খেলাপী_ঋণের_পরিমাণ'] ?? '' }}</td>
-                                            <td>{{ $loanData['পূনঃতফসীল_সর্বশেষ_তারিখ'] }}</td>
-                                            <td>{{ $loanData['খাত'] }}</td>
-                                            <td>{{ $loanData['সাল'] }}</td>
-                                        </tr>
-                                    @endforeach
-
-
-                                    </tbody>
-                                </table>
+                    <div id="graph-collapse-rin">
+                        <!-- একক ঋণ -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="collapse show" id="ekok-rin" data-bs-parent="#graph-collapse-rin">
+                                    <div class="card card-body">
+                                        <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
+                                            <div class="table-wrapper">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">ব্যাংক/ প্রতিষ্ঠানের নাম</th>
+                                                        <th scope="col">ঋণের পরিমাণ</th>
+                                                        <th scope="col">খেলাপী ঋণের পরিমাণ</th>
+                                                        <th scope="col">পূনঃতফসীলের সর্বশেষ তারিখ</th>
+                                                        <th scope="col">খাত</th>
+                                                        <th scope="col">সাল</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($loanDatas as $loanData)
+                                                        @if($loanData['খাত'] == 'একক ঋণ')
+                                                            <tr>
+                                                                <th scope="row">{{ $loanData['ব্যাংক_প্রতিষ্ঠানের_নাম'] }}</th>
+                                                                <td>{{ $loanData['ঋণের_পরিমাণ'] }}</td>
+                                                                <td>{{ $loanData['খেলাপী_ঋণের_পরিমাণ'] ?? '' }}</td>
+                                                                <td>{{ $loanData['পূনঃতফসীল_সর্বশেষ_তারিখ'] }}</td>
+                                                                <td>{{ $loanData['খাত'] }}</td>
+                                                                <td>{{ $loanData['সাল'] }}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- যৌথ ঋণ -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="collapse" data-bs-parent="#graph-collapse-rin" id="joutho-rin">
+                                    <div class="card card-body">
+                                        <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
+                                            <div class="table-wrapper">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">ব্যাংক/ প্রতিষ্ঠানের নাম</th>
+                                                        <th scope="col">ঋণের পরিমাণ</th>
+                                                        <th scope="col">খেলাপী ঋণের পরিমাণ</th>
+                                                        <th scope="col">পূনঃতফসীলের সর্বশেষ তারিখ</th>
+                                                        <th scope="col">খাত</th>
+                                                        <th scope="col">সাল</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($loanDatas as $loanData)
+                                                        @if($loanData['খাত'] == 'যৌথ ঋণ')
+                                                        <tr>
+                                                            <th scope="row">{{ $loanData['ব্যাংক_প্রতিষ্ঠানের_নাম'] }}</th>
+                                                            <td>{{ $loanData['ঋণের_পরিমাণ'] }}</td>
+                                                            <td>{{ $loanData['খেলাপী_ঋণের_পরিমাণ'] ?? '' }}</td>
+                                                            <td>{{ $loanData['পূনঃতফসীল_সর্বশেষ_তারিখ'] }}</td>
+                                                            <td>{{ $loanData['খাত'] }}</td>
+                                                            <td>{{ $loanData['সাল'] }}</td>
+                                                        </tr>
+                                                        @endif
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- নির্ভরশীল ঋণ -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="collapse" data-bs-parent="#graph-collapse-rin" id="nirborshil-rin">
+                                    <div class="card card-body">
+                                        <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
+                                            <div class="table-wrapper">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">ব্যাংক/ প্রতিষ্ঠানের নাম</th>
+                                                        <th scope="col">ঋণের পরিমাণ</th>
+                                                        <th scope="col">খেলাপী ঋণের পরিমাণ</th>
+                                                        <th scope="col">পূনঃতফসীলের সর্বশেষ তারিখ</th>
+                                                        <th scope="col">খাত</th>
+                                                        <th scope="col">সাল</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($loanDatas as $loanData)
+                                                        @if($loanData['খাত'] == 'নির্ভরশীল')
+                                                            <tr>
+                                                                <th scope="row">{{ $loanData['ব্যাংক_প্রতিষ্ঠানের_নাম'] }}</th>
+                                                                <td>{{ $loanData['ঋণের_পরিমাণ'] }}</td>
+                                                                <td>{{ $loanData['খেলাপী_ঋণের_পরিমাণ'] ?? '' }}</td>
+                                                                <td>{{ $loanData['পূনঃতফসীল_সর্বশেষ_তারিখ'] }}</td>
+                                                                <td>{{ $loanData['খাত'] }}</td>
+                                                                <td>{{ $loanData['সাল'] }}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- এমডি, চেয়ারম্যান বা ডিরেক্টর বাটন -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="collapse" data-bs-parent="#graph-collapse-rin" id="md-rin">
+                                    <div class="card card-body">
+                                        <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
+                                            <div class="table-wrapper">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">ব্যাংক/ প্রতিষ্ঠানের নাম</th>
+                                                        <th scope="col">ঋণের পরিমাণ</th>
+                                                        <th scope="col">খেলাপী ঋণের পরিমাণ</th>
+                                                        <th scope="col">পূনঃতফসীলের সর্বশেষ তারিখ</th>
+                                                        <th scope="col">খাত</th>
+                                                        <th scope="col">সাল</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($loanDatas as $loanData)
+                                                        @if($loanData['খাত'] == 'নির্ভরশীল')
+                                                            <tr>
+                                                                <th scope="row">{{ $loanData['ব্যাংক_প্রতিষ্ঠানের_নাম'] }}</th>
+                                                                <td>{{ $loanData['ঋণের_পরিমাণ'] }}</td>
+                                                                <td>{{ $loanData['খেলাপী_ঋণের_পরিমাণ'] ?? '' }}</td>
+                                                                <td>{{ $loanData['পূনঃতফসীল_সর্বশেষ_তারিখ'] }}</td>
+                                                                <td>{{ $loanData['খাত'] }}</td>
+                                                                <td>{{ $loanData['সাল'] }}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+                    <p>
+                        <!-- একক ঋণ বাটন-->
+                        <button class="btn btn-primary" data-bs-toggle="collapse" href="#ekok-rin"
+                                role="button" aria-expanded="false" aria-controls="ekok-rin">একক ঋণ
+                        </button>
+                        <!-- যৌথ ঋণ বাটন-->
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#joutho-rin" aria-expanded="false"
+                                aria-controls="joutho-rin">যোথ ঋন
+                        </button>
+
+                        <!-- নির্ভরশীল বাটন -->
+                        <button class="btn btn-primary" data-bs-toggle="collapse" href="#nirborshil-rin"
+                                role="button" aria-expanded="false" aria-controls="nirborshil-rin">নির্ভরশীল ঋণ
+                        </button>
+
+                        <!-- এমডি, চেয়ারম্যান বা ডিরেক্টর বাটন -->
+                        <button class="btn btn-primary" data-bs-toggle="collapse" href="#md-rin"
+                                role="button" aria-expanded="false" aria-controls="md-rin">এমডি, চেয়ারম্যান বা ডিরেক্টর
+                        </button>
+
+                    </p>
                 </div>
                 <!-- সম্পদ tab -->
                 <div data-wtab-tabtitle-text="সম্পদ" data-wtab-tabtitle-tooltip="Tooltip 4">
@@ -191,8 +341,8 @@
                                                     </thead>
                                                     <tbody>
                                                     @foreach($movableDatas as $movableData)
-                                                        <tr>
-                                                            <th scope="row">{{ $movableData->নিজ }}</th>
+                                                        <tr style="background-color: @if($movableData->সাল == '2008') #e5714b @elseif($movableData->সাল == '2014') #54bd8d @else #3b78d3 @endif">
+                                                            <td>{{ $movableData->নিজ }}</td>
                                                             <td>{{ $movableData->স্ত্রী_স্বামী }}</td>
                                                             <td>{{ $movableData->নির্ভরশীল }}</td>
                                                             <td>{{ $movableData->খাত }}</td>
@@ -222,14 +372,16 @@
                                                         <th scope="col">নিজ</th>
                                                         <th scope="col">স্ত্রী/স্বামী</th>
                                                         <th scope="col">নির্ভরশীল</th>
+                                                        <th scope="col">যৌথ মালিকানা</th>
+                                                        <th scope="col">প্রার্থীর অংশ</th>
                                                         <th scope="col">খাত</th>
                                                         <th scope="col">সাল</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($immovableDatas as $immovableData)
-                                                        <tr>
-                                                            <th scope="row">{{ $immovableData->নিজ }}</th>
+                                                        <tr style="background-color: @if($immovableData->সাল == '2008') #e5714b @elseif($immovableData->সাল == '2014') #54bd8d @elseif($immovableData->সাল == '2018') #3b78d3 @endif">
+                                                            <td>{{ $immovableData->নিজ }}</td>
                                                             <td>{{ $immovableData->স্ত্রী_স্বামী }}</td>
                                                             <td>{{ $immovableData->নির্ভরশীল }}</td>
                                                             <td>{{ $immovableData->যৌথ_মালিকানা }}</td>
@@ -260,9 +412,59 @@
 
                     </p>
                 </div>
+                <!-- দায় tab -->
+                <div data-wtab-tabtitle-text="দায়" data-wtab-tabtitle-tooltip="দায়">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">দায়সমূহের প্রকৃতি ও বর্ণণা</th>
+                            <th scope="col">পরিমাণ</th>
+                            <th scope="col">সাল</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($liabilitiesDatas as $liabilitiesData)
+                            <tr>
+                                <td>{{ $liabilitiesData['দায়সমূহের_প্রকৃতি_বর্ণণা'] }}</td>
+                                <td>{{ $liabilitiesData['পরিমাণ']}}</td>
+                                <td>{{ $liabilitiesData['সাল'] }}</td>
+                            </tr>
+                        @endforeach
 
 
-                <div data-wtab-tabtitle-text="প্রতিশ্রুতি" data-wtab-tabtitle-tooltip="Tooltip 4">প্রতিশ্রুতি</div>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div data-wtab-tabtitle-text="প্রতিশ্রুতি" data-wtab-tabtitle-tooltip="Tooltip 4">
+                    <div class="card card-body">
+                        <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
+                            <div class="table-wrapper">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">প্রতিশ্রুতি</th>
+                                        <th scope="col">অর্জন</th>
+                                        <th scope="col">সাল</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($promiseDatas as $promise)
+                                        <tr>
+                                            <td>{{ $promise['প্রতিশ্রুতি'] }}</td>
+                                            <td>{{ $promise['অর্জন'] }}</td>
+                                            <td>{{ $promise['সাল'] }}</td>
+                                        </tr>
+
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

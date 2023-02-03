@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\BasicInformation;
 use App\Models\Immovable;
 use App\Models\income;
+use App\Models\Liability;
 use App\Models\Loan;
 use App\Models\Movable;
+use App\Models\Promise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,8 +28,6 @@ class BasicInformationController extends Controller
             array_push($xAxisValues,$income->খাত);
         }
         $allYears = income::select('সাল')->pluck('সাল')->toArray();
-
-//        $allYears =  DB::table('incomes')->pluck('সাল')->toArray();
         $uniqueYears = array_values(array_unique($allYears));
         foreach ($uniqueYears as $year){
 
@@ -59,19 +59,17 @@ class BasicInformationController extends Controller
 
         //movable table data
         $movableDatas = Movable::where('প্রার্থী','=',$candidateName)->get();
+        $movableDatas = $movableDatas->sortBy('সাল')->sortBy('খাত');
+
         //immovable table data
         $immovableDatas = Immovable::where('প্রার্থী','=',$candidateName)->get();
-        //loan table data
-        $rawLoanDatas = Loan::where('প্রার্থী','=',$candidateName)->get();
-//        $loanDatas = Loan::where('প্রার্থী','=',$candidateName)->get();
+        $immovableDatas = $immovableDatas->sortBy('সাল')->sortBy('খাত');
 
+        //loan table data start
+        $rawLoanDatas = Loan::where('প্রার্থী','=',$candidateName)->get();
         $loanDatas= [];
         foreach ($rawLoanDatas as $rawLoanData){
             if($rawLoanData->ব্যাংক_প্রতিষ্ঠানের_নাম != null){
-                $banks = [];
-                $loansAmount = [];
-                $tafsilDates = [];
-
                 $banks = explode("।",$rawLoanData->ব্যাংক_প্রতিষ্ঠানের_নাম);
                 $loansAmount = explode("।",$rawLoanData->ঋণের_পরিমাণ);
                 $tafsilDates = explode("।",$rawLoanData->পূনঃতফসীল_সর্বশেষ_তারিখ);
@@ -90,8 +88,51 @@ class BasicInformationController extends Controller
             }
 
         }
+        //loan table data end
+
+        //দায় ট্যাবল data start
+        $rawLiabilitiesDatas = Liability::where('প্রার্থী','=',$candidateName)->get();
+        $liabilitiesDatas = [];
+        foreach ($rawLiabilitiesDatas as $rawLiabilitiesData){
+            if($rawLiabilitiesData ->দায়সমূহের_প্রকৃতি_বর্ণণা != null){
+                //দায়সমূহের প্রকৃতি ও বর্ণণা
+                $liabilitiesTypeAndDescriptions = explode("।",$rawLiabilitiesData->দায়সমূহের_প্রকৃতি_বর্ণণা);
+
+                //পরিমাণ
+                $liabilitiesAmounts = explode("।",$rawLiabilitiesData->পরিমাণ);
+                for($i=0; $i< sizeof($liabilitiesTypeAndDescriptions); $i++){
+                    $liability = [];
+                    $liability['দায়সমূহের_প্রকৃতি_বর্ণণা'] = array_key_exists($i,$liabilitiesTypeAndDescriptions)  ? $liabilitiesTypeAndDescriptions[$i] : "";
+                    $liability['পরিমাণ'] = array_key_exists($i,$liabilitiesAmounts)  ? $liabilitiesAmounts[$i] : "";
+                    $liability['সাল'] = $rawLiabilitiesData->সাল;
+                    array_push($liabilitiesDatas,$liability);
+                }
+            }
+        }
+        //দায় ট্যাবল data end
+
+        //Promise data start
+        $rawPromises = Promise::where('প্রার্থী','=',$candidateName)->get();
+        $promiseDatas=[];
+        foreach ($rawPromises as $rawPromise){
+            if($rawPromise->প্রতিশ্রুতি !=null){
+                $promises = explode("।",$rawPromise->প্রতিশ্রুতি);
+                $achievements = explode("।",$rawPromise->অর্জন);
+                for($i=0;$i<sizeof($promises);$i++){
+                    $promise=[];
+                    $promise['প্রতিশ্রুতি'] =  array_key_exists($i,$promises)  ? $promises[$i] : "";
+                    $promise['অর্জন'] =  array_key_exists($i,$achievements)  ? $achievements[$i] : "";
+                    $promise['সাল'] = $rawPromise->সাল;
+                    array_push($promiseDatas,$promise);
+                }
+            }
+        }
+
+
+        //Promise data end
 
 //        dd($loanDatas);
-        return view( 'basic',["candidate"=>$candidate,"graphValuesOfOwnIncome"=>$graphValuesOfOwnIncome,"graphValuesOfDependentIncomeIncome"=>$graphValuesOfDependentIncomeIncome,"movableDatas"=>$movableDatas,"immovableDatas"=>$immovableDatas,"loanDatas"=>$loanDatas]);
+        return view( 'basic',["candidate"=>$candidate,"graphValuesOfOwnIncome"=>$graphValuesOfOwnIncome,"graphValuesOfDependentIncomeIncome"=>$graphValuesOfDependentIncomeIncome,"movableDatas"=>$movableDatas,"immovableDatas"=>$immovableDatas,"loanDatas"=>$loanDatas,"liabilitiesDatas"=>$liabilitiesDatas,"promiseDatas"=>$promiseDatas]);
     }
+
 }
