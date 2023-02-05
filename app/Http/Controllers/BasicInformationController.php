@@ -60,6 +60,7 @@ class BasicInformationController extends Controller
         //movable table data
         $movableDatas = Movable::where('প্রার্থী','=',$candidateName)->get();
         $movableDatas = $movableDatas->sortBy('সাল')->sortBy('খাত');
+//        dd($movableDatas->pluck('খাত'));
 
         //immovable table data
         $immovableDatas = Immovable::where('প্রার্থী','=',$candidateName)->get();

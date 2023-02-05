@@ -341,7 +341,7 @@
                                                     </thead>
                                                     <tbody>
                                                     @foreach($movableDatas as $movableData)
-                                                        <tr style="background-color: @if($movableData->সাল == '2008') #e5714b @elseif($movableData->সাল == '2014') #54bd8d @else #3b78d3 @endif">
+                                                        <tr>
                                                             <td>{{ $movableData->নিজ }}</td>
                                                             <td>{{ $movableData->স্ত্রী_স্বামী }}</td>
                                                             <td>{{ $movableData->নির্ভরশীল }}</td>
@@ -365,8 +365,21 @@
                                 <div class="collapse" data-bs-parent="#graph-collapse2" id="immovableTable">
                                     <div class="card card-body">
                                         <div class="" style="margin-top:20px; margin-left: 20px; height: 300px;">
+                                            <!-- Dropdown -->
+
+{{--                                            <div class="dropdown" id="immovable-dropdown">--}}
+{{--                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                                    খাত--}}
+{{--                                                </button>--}}
+{{--                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">--}}
+{{--                                                    @foreach($immovableDatas->pluck('খাত') as $sector)--}}
+{{--                                                        <li><a class="dropdown-item" href="#">{{ $sector }}</a></li>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </ul>--}}
+{{--                                            </div>--}}
+
                                             <div class="table-wrapper">
-                                                <table class="table">
+                                                <table class="table" id="immovableTable">
                                                     <thead>
                                                     <tr>
                                                         <th scope="col">নিজ</th>
@@ -380,7 +393,7 @@
                                                     </thead>
                                                     <tbody>
                                                     @foreach($immovableDatas as $immovableData)
-                                                        <tr style="background-color: @if($immovableData->সাল == '2008') #e5714b @elseif($immovableData->সাল == '2014') #54bd8d @elseif($immovableData->সাল == '2018') #3b78d3 @endif">
+                                                        <tr>
                                                             <td>{{ $immovableData->নিজ }}</td>
                                                             <td>{{ $immovableData->স্ত্রী_স্বামী }}</td>
                                                             <td>{{ $immovableData->নির্ভরশীল }}</td>
@@ -390,8 +403,6 @@
                                                             <td>{{ $immovableData->সাল }}</td>
                                                         </tr>
                                                     @endforeach
-
-
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -497,7 +508,6 @@
         let graphValuesOfOwnIncome = {!! json_encode($graphValuesOfOwnIncome) !!};
         let graphValuesOfDependentIncomeIncome = {!! json_encode($graphValuesOfDependentIncomeIncome) !!};
 
-        console.log(graphValuesOfOwnIncome);
         $(document).ready(function () {
             formGraph("ownIncomeGraphChart", graphValuesOfOwnIncome);
             formGraph("dependentIncomeGraphChart", graphValuesOfDependentIncomeIncome);
@@ -555,5 +565,48 @@
                 config
             );
         }
+
+        //filter table data
+        var $selectImmovableSectors = $('#immovable-dropdown'),
+            $tbody = $('#immovableTable tbody'),
+            $rows = $tbody.find('tr');
+
+
+        function onImmovableSectorChange() {
+            var selectedSector = $selectImmovableSectors.val() || '',
+                $filteredOptions = $episodeOptions.prop('selected', false).detach();
+
+            $filteredOptions = $filteredOptions.filter('[data-series="' + selectedSeries + '"]');
+            $selectEpisode.append($filteredOptions).prop('disabled', $filteredOptions.length == 0);
+
+            if ($filteredOptions.length) {
+                $filteredOptions.first().prop('selected', true);
+            } else {
+                $selectEpisode.append($episodeOptions.filter('.placeholder')).prop('disabled', true);
+            }
+
+            filterTable();
+        }
+        //
+        // function onEpisodeChange() {
+        //     filterTable();
+        // }
+        //
+        // function filterTable() {
+        //     var $filteredRows = $rows.detach(),
+        //         selectedSeries = $selectSeries.val() || '',
+        //         selectedEpisode = $selectEpisode.val() || '';
+        //
+        //     if (selectedSeries != '') {
+        //         $filteredRows = $filteredRows.filter('[data-series="' + selectedSeries + '"]');
+        //         $filteredRows = $filteredRows.filter('[data-episode="' + selectedEpisode + '"]');
+        //     }
+        //
+        //     $tbody.append($filteredRows);
+        // }
+        //
+        // filterTable();
+        // $selectSeries.on('change', onSeriesChange);
+        // $selectEpisode.on('change', onEpisodeChange);
     </script>
 @endsection
